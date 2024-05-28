@@ -13,27 +13,39 @@ function restart() {
   alert("Restart button clicked and content cleared!");
 }
 
-async function spellCheck() {
-  const textArea = document.getElementById("text-area");
-  const text = textArea.value;
+// async function spellCheck() {
+//   const textArea = document.getElementById("text-area");
+//   const text = textArea.value;
 
-  try {
-    const response = await fetch("/api/spell-check", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    });
+//   try {
+//     const response = await fetch("/api/spell-check", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ text }),
+//     });
 
-    if (!response.ok) {
-      throw new Error("Spell check failed");
-    }
+//     if (!response.ok) {
+//       throw new Error("Spell check failed");
+//     }
 
-    const result = await response.json();
-    alert("Spell check result: " + JSON.stringify(result));
-  } catch (error) {
-    alert("Error: " + error.message);
+//     const result = await response.json();
+//     alert("Spell check result: " + JSON.stringify(result));
+//   } catch (error) {
+//     alert("Error: " + error.message);
+//   }
+// }
+
+function toggleSpellCheck() {
+  const textBox = document.getElementById('text-area');
+  const button = document.getElementById('toggleButton');
+  if (textBox.spellcheck) {
+      textBox.spellcheck = false;
+      button.textContent = 'Spell Check: Off';
+  } else {
+      textBox.spellcheck = true;
+      button.textContent = 'Spell Check: On';
   }
 }
 
@@ -89,6 +101,7 @@ async function findMissingWords() {
 
 // player
 document.addEventListener("DOMContentLoaded", () => {
+  let textArea = document.getElementById("text-area");
   const audio = document.getElementById("audio");
   const audioSource = document.getElementById("audio-source");
   const playlistItems = document.querySelectorAll(".playlist li");
@@ -102,7 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let selectedAudioSrc = "";
   let stopwatchInterval;
   let elapsedTime = 0;
-
+  textArea.disabled = true;
+  
   playlistItems.forEach((item) => {
     item.addEventListener("click", () => {
       // Remove active class from all items
@@ -133,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (startStopButton.textContent === "Start") {
       if (selectedAudioSrc) {
         startAudio();
+        textArea.disabled = false; 
         startStopButton.textContent = "Stop";
 
         // Start the stopwatch
@@ -144,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Stop the audio and stopwatch
       audio.pause();
       stopStopwatch();
+      textArea.disabled = true;
       startStopButton.textContent = "Start";
     }
   });
@@ -163,6 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
       startAudio();
       resetStopwatch();
       startStopButton.textContent = "Stop";
+      textArea.disabled = false;
       startAudio();
     } else {
       alert("Please select and start a track first.");
