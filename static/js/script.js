@@ -103,18 +103,14 @@ document.addEventListener("DOMContentLoaded", () => {
   let stopwatchInterval;
   let elapsedTime = 0;
 
-  playlistItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      // Remove active class from all items
-      playlistItems.forEach((i) => i.classList.remove("active"));
-
-      // Add active class to the clicked item
-      item.classList.add("active");
-
-      // Set the selected audio source
-      selectedAudioSrc = item.getAttribute("data-src");
+  playlistItems.forEach(item => {
+    item.addEventListener('click', () => {
+        playlistItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        selectedAudioSrc = item.getAttribute('data-src');
+        console.log("Selected audio source: ", selectedAudioSrc); // Debugging line
     });
-  });
+});
 
   function startAudio() {
     if (selectedAudioSrc) {
