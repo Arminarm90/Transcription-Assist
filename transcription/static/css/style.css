@@ -15,7 +15,7 @@ body {
   height: 80%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -91,7 +91,9 @@ body {
 /* myapp/static/myapp/styles.css */
 /* player */
 .audio-player {
-  text-align: center;
+  margin: auto;
+  width: 70%;
+  height: 20%;
   background: #0dd7bc;
   padding: 20px;
   border-radius: 10px;
@@ -107,6 +109,34 @@ audio {
   flex-direction: column;
   align-items: center;
 }
+
+.center2{
+  display: grid; /* Use grid layout */
+  gap: 3px; /* Space between p tags */
+  float: right;
+  width: 20%;
+  height: 70%;
+  background: #991fe5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.center2 p {
+  margin: 0; /* Remove default margin */
+}
+.center1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  width: 20%;
+  height: 50%;
+  background: #ffff00;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 
 button {
   padding: 10px;
