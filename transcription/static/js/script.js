@@ -1,51 +1,12 @@
-async function start() {
-  const pdfReader = document.getElementById("pdf-reader");
-
-  pdfReader.src = "path/to/your/pdf/document.pdf";
-  alert("Start button clicked and PDF loaded!");
-}
-
-function restart() {
-  const textArea = document.getElementById("text-area");
-  textArea.value = "";
-  const pdfReader = document.getElementById("pdf-reader");
-  pdfReader.src = "";
-  alert("Restart button clicked and content cleared!");
-}
-
-// async function spellCheck() {
-//   const textArea = document.getElementById("text-area");
-//   const text = textArea.value;
-
-//   try {
-//     const response = await fetch("/api/spell-check", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ text }),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error("Spell check failed");
-//     }
-
-//     const result = await response.json();
-//     alert("Spell check result: " + JSON.stringify(result));
-//   } catch (error) {
-//     alert("Error: " + error.message);
-//   }
-// }
-
 function toggleSpellCheck() {
-  const textBox = document.getElementById('text-area');
-  const button = document.getElementById('toggleButton');
+  const textBox = document.getElementById("text-area");
+  const button = document.getElementById("toggleButton");
   if (textBox.spellcheck) {
-      textBox.spellcheck = false;
-      button.textContent = 'Spell Check: Off';
+    textBox.spellcheck = false;
+    button.textContent = "Spell Check: Off";
   } else {
-      textBox.spellcheck = true;
-      button.textContent = 'Spell Check: On';
+    textBox.spellcheck = true;
+    button.textContent = "Spell Check: On";
   }
 }
 
@@ -75,33 +36,36 @@ async function createPdf() {
   }
 }
 
-async function findMissingWords() {
-  const textArea = document.getElementById("text-area");
-  const text = textArea.value;
+// async function findMissingWords() {
+//   const textArea = document.getElementById("text-area");
+//   const text = textArea.value;
 
-  try {
-    const response = await fetch("/api/find-missing-words", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    });
+//   try {
+//     const response = await fetch("/api/find-missing-words", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ text }),
+//     });
 
-    if (!response.ok) {
-      throw new Error("Find missing words failed");
-    }
+//     if (!response.ok) {
+//       throw new Error("Find missing words failed");
+//     }
 
-    const result = await response.json();
-    alert("Missing words: " + JSON.stringify(result));
-  } catch (error) {
-    alert("Error: " + error.message);
-  }
-}
+//     const result = await response.json();
+//     alert("Missing words: " + JSON.stringify(result));
+//   } catch (error) {
+//     alert("Error: " + error.message);
+//   }
+// }
 
 // player
 document.addEventListener("DOMContentLoaded", () => {
+  let slashCounter = document.getElementById("slash-counter");
+  let wordCounter = document.getElementById("word-counter");
   let textArea = document.getElementById("text-area");
+  let missingWordsButton = document.getElementById("find-missing-words");
   const audio = document.getElementById("audio");
   const audioSource = document.getElementById("audio-source");
   const playlistItems = document.querySelectorAll(".playlist li");
@@ -111,12 +75,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const volumeButton = document.getElementById("volume-button");
   const volumeSlider = document.getElementById("volume-slider");
   const pauseButton = document.getElementById("pause-button");
-  const timeDisplay = document.getElementById("time-display");
+  const progressBar = document.getElementById("progress-bar");
+  const durationCheckbox = document.getElementById("duration-checkbox");
   let selectedAudioSrc = "";
   let stopwatchInterval;
   let elapsedTime = 0;
   textArea.disabled = true;
-  
+
+  textArea.addEventListener("input", function () {
+    if (missingWordsButton.innerHTML === "Find missing words") {
+      let text = textArea.value.trim();
+      let numOfSlashes = text.split("/").length - 1;
+      slashCounter.innerHTML = numOfSlashes;
+
+      let textWithoutPunctuation = textArea.value.replace(/[^\w\s]/gi, "");
+      let numberOfWords = textWithoutPunctuation
+        .split(" ")
+        .filter((word) => word !== "").length;
+      wordCounter.innerHTML = numberOfWords;
+
+      // let avg = numberOfWords / numOfSlashes;
+
+      // if (isNaN(avg) || !isFinite(avg)) {
+      //   avg = 0;
+      // } else {
+      //   avg = avg.toFixed(2);
+      // }
+
+      // avarageCounter.innerHTML = avg;
+    }
+  });
+
   playlistItems.forEach((item) => {
     item.addEventListener("click", () => {
       // Remove active class from all items
@@ -147,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (startStopButton.textContent === "Start") {
       if (selectedAudioSrc) {
         startAudio();
-        textArea.disabled = false; 
+        textArea.disabled = false;
         startStopButton.textContent = "Stop";
 
         // Start the stopwatch
@@ -176,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
   restartButton.addEventListener("click", () => {
     if (audioSource.src) {
       audio.currentTime = 0;
+      audio.pause();
       // startAudio();
       textArea.disabled = true;
       resetStopwatch();
@@ -198,9 +188,30 @@ document.addEventListener("DOMContentLoaded", () => {
   volumeSlider.addEventListener("input", () => {
     audio.volume = volumeSlider.value;
   });
+
+  progressBar.addEventListener("input", () => {
+    const seekTime = audio.duration * (progressBar.value / 100);
+    audio.currentTime = seekTime;
+  });
+
+  progressBar.addEventListener("change", () => {
+    if (!audio.paused) {
+      audio.play(); // Ensure the audio continues playing after seeking
+    }
+  });
+
+  durationCheckbox.addEventListener("change", () => {
+    if (durationCheckbox.checked) {
+      progressBar.style.display = "block";
+    } else {
+      progressBar.style.display = "none";
+    }
+  });
+
   // Disable seeking
-  audio.addEventListener("seeking", (event) => {
-    audio.currentTime = audio.currentTime; // Prevent seeking by resetting currentTime to the same value
+  audio.addEventListener("timeupdate", (event) => {
+    // audio.currentTime = audio.currentTime; // Prevent seeking by resetting currentTime to the same value
+    updateProgressBar();
   });
 
   function startStopwatch() {
@@ -220,6 +231,13 @@ document.addEventListener("DOMContentLoaded", () => {
     elapsedTime = 0;
     stopwatchDisplay.textContent = "00:00:00";
     startStopwatch();
+  }
+
+  function updateProgressBar() {
+    if (audio.duration) {
+      const value = (audio.currentTime / audio.duration) * 100;
+      progressBar.value = value;
+    }
   }
 
   function formatTime(milliseconds) {
