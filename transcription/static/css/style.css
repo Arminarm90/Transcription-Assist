@@ -32,7 +32,7 @@ body {
   display: flex;
   width: 100%;
   flex-grow: 1;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .text-area {
   flex: 1;
@@ -95,7 +95,7 @@ body {
 .audio-player {
   margin: auto;
   width: 70%;
-  height: 20%;
+  height: 15%;
   background: #0dd7bc;
   padding: 20px;
   border-radius: 10px;
@@ -113,18 +113,20 @@ audio {
 }
 
 .center2{
-  display: grid; /* Use grid layout */
-  gap: 3px; /* Space between p tags */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   float: right;
-  width: 20%;
+  font-weight: bold;
+  width: 33%;
   height: 70%;
-  background: #991fe5;
+  background: #b24cf2;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .center2 p {
-  margin: 0; /* Remove default margin */
+  margin: 8px; /* Remove default margin */
   color: white;
 }
 .center1{
@@ -193,7 +195,7 @@ audio::-webkit-media-controls-timeline {
 }
 
 .playlist-container {
-  max-height: 240px; /* Set the height of the playlist container */
+  max-height: 90%; /* Set the height of the playlist container */
   overflow-y: auto; /* Enable vertical scrolling */
   margin-top: 20px;
   border: 1px solid #0dd7bc; /* Optional: add a border around the playlist */
