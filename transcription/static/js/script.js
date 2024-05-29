@@ -176,11 +176,12 @@ document.addEventListener("DOMContentLoaded", () => {
   restartButton.addEventListener("click", () => {
     if (audioSource.src) {
       audio.currentTime = 0;
-      startAudio();
+      // startAudio();
+      textArea.disabled = true;
       resetStopwatch();
-      startStopButton.textContent = "Stop";
-      textArea.disabled = false;
-      startAudio();
+      stopStopwatch();
+      startStopButton.textContent = "Start";
+      // startAudio();
     } else {
       alert("Please select and start a track first.");
     }
