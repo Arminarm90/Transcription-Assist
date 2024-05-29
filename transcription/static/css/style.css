@@ -95,7 +95,7 @@ body {
 .audio-player {
   margin: auto;
   width: 70%;
-  height: 15%;
+  height: 20%;
   background: #0dd7bc;
   padding: 20px;
   border-radius: 10px;
@@ -171,10 +171,24 @@ button:hover {
   width: 150px;
 }
 
+#progress-bar {
+  appearance: none;
+  width: 70%;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+}
+
 #stopwatch {
-  margin-top: 20px;
+  margin-top: 10px;
   font-size: 1.5em;
   font-weight: bold;
+}
+
+#duration-checkbox {
+  margin-top: 10px;
 }
 
 /* Hide the seek bar and time displays */
