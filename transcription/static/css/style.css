@@ -123,6 +123,7 @@ audio {
 }
 .center2 p {
   margin: 0; /* Remove default margin */
+  color: white;
 }
 .center1{
   display: flex;
@@ -130,7 +131,7 @@ audio {
   align-items: center;
   float: left;
   width: 20%;
-  height: 50%;
+  height: 70%;
   background: #ffff00;
   padding: 20px;
   border-radius: 10px;
