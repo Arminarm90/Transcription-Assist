@@ -170,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
       textArea.disabled = true;
       resetStopwatch();
       stopStopwatch();
+      textArea.value = "";
       startStopButton.textContent = "Start";
       // startAudio();
     } else {
