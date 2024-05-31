@@ -20,13 +20,21 @@
           <source id="audio-source" src="" type="audio/mp3" />
           Your browser does not support the audio element.
         </audio>
-        <div id= "layout-button" class="center2">
-          <p>Words:</p>
-          <p id="word-counter">0</p>
-          <p>Slashes:</p>
-          <p id="slash-counter">0</p>
-          <p>Avarage:</p>
-          <p id="avarage-counter">0</p>
+        <div class="counter">
+          <div id="layout-button" class="center2">
+            <p>Words:</p>
+            <p id="word-counter">0</p>
+            <p>Slashes:</p>
+            <p id="slash-counter">0</p>
+            <p>Avarage:</p>
+            <p id="avarage-counter">0</p>
+          </div>
+          <input
+            type="text"
+            placeholder="Enter the coursebook's name, part and page"
+            id="name-text-area"
+            spellcheck="true"
+          />
         </div>
         <div class="custom-controls">
           <div class="inline-controls">
@@ -42,9 +50,10 @@
             />
           </div>
           <label>
-            <input type="checkbox" id="duration-checkbox" checked> Show Duration        
+            <input type="checkbox" id="duration-checkbox" checked /> Show
+            Duration
           </label>
-          <input type="range" id="progress-bar" min="0" max="100" value="0">
+          <input type="range" id="progress-bar" min="0" max="100" value="0" />
           <div id="stopwatch">00:00:00</div>
         </div>
       </div>
@@ -60,7 +69,7 @@
         <div class="playlist-container">
           <div class="tracks">Tracks</div>
           <div class="upload-container">
-            <input type="file" id="audio-upload" accept="audio/*">
+            <input type="file" id="audio-upload" accept="audio/*" />
           </div>
           <ul class="playlist">
             {% for audio in audio_files %}
@@ -72,9 +81,15 @@
       <div class="footer">
         <button class="start" id="start-stop-button">Start</button>
         <button class="restart" id="restart-button">Restart</button>
-        <button id="toggleButton" onclick="toggleSpellCheck()">Spell Check: On</button>
-        {% comment %} <p id="status">Spell Check: off</p> {% endcomment %}
-        <button id="find-missing-words" class="find-missing-words-color">Find missing words</button>
+        <button id="toggleButton" onclick="toggleSpellCheck()">
+          Spell Check: On
+        </button>
+        {% comment %}
+        <p id="status">Spell Check: off</p>
+        {% endcomment %}
+        <button id="find-missing-words" class="find-missing-words-color">
+          Find missing words
+        </button>
         <button class="create-pdf" onclick="createPdf()">Create Pdf</button>
       </div>
     </div>
