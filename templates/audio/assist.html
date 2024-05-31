@@ -36,26 +36,29 @@
             spellcheck="true"
           />
         </div>
-        <div class="custom-controls">
-          <div class="inline-controls">
-            <button id="pause-button"><i class="fas fa-pause"></i></button>
-            <button id="volume-button"><i class="fas fa-volume-up"></i></button>
-            <input
-              type="range"
-              id="volume-slider"
-              min="0"
-              max="1"
-              step="0.01"
-              value="1"
-            />
+        <div class="controls-place">
+          <div class="custom-controls">
+            <div class="inline-controls">
+              <button id="pause-button"><i class="fas fa-pause"></i></button>
+              <button id="volume-button"><i class="fas fa-volume-up"></i></button>
+              <input
+                type="range"
+                id="volume-slider"
+                min="0"
+                max="1"
+                step="0.01"
+                value="1"
+              />
+            </div>
+            <label>
+              <input type="checkbox" id="duration-checkbox" checked /> Show
+              Duration
+            </label>
+            <input type="range" id="progress-bar" min="0" max="100" value="0" />
+            <div id="stopwatch">00:00:00</div>
           </div>
-          <label>
-            <input type="checkbox" id="duration-checkbox" checked /> Show
-            Duration
-          </label>
-          <input type="range" id="progress-bar" min="0" max="100" value="0" />
-          <div id="stopwatch">00:00:00</div>
         </div>
+
       </div>
       <!-- <div id="stopwatch">00:00:00</div> -->
       <div class="main">

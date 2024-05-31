@@ -21,7 +21,8 @@ body {
 }
 .header {
   background-color: #ff2f2f;
-  width: 100%;
+  margin: auto;
+  width: 98%;
   text-align: center;
   font-size: 24px;
   font-weight: bold;
@@ -93,8 +94,9 @@ body {
 /* myapp/static/myapp/styles.css */
 /* player */
 .audio-player {
-  margin: auto;
-  width: 70%;
+  float: left;
+  margin: 0 10px;
+  width: 95%;
   height: 20%;
   background: #0dd7bc;
   padding: 20px;
@@ -106,6 +108,11 @@ audio {
   display: none; /* Hide the default audio player */
 }
 
+.controls-place{
+  width: 40%;
+  float: left;
+}
+
 .custom-controls {
   display: flex;
   flex-direction: column;
@@ -114,7 +121,7 @@ audio {
 .counter {
   float: right;
   display: flex;
-  width: 40%;
+  width: 30%;
   align-items: center;
   flex-direction: column;
   margin-right: 20px;
@@ -190,7 +197,7 @@ button:hover {
 }
 #volume-slider {
   margin-left: 10px;
-  width: 150px;
+  width: 100px;
 }
 
 #progress-bar {
