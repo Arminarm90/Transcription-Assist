@@ -1,12 +1,14 @@
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(45deg, pink, teal);
-  background-repeat: no-repeat;  display: flex;
+  background-color: #8EC5FC;
+  background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
 }
+
 .container {
   border: 2px solid #ff0000;
   border-radius: 10px;
@@ -20,7 +22,8 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .header {
-  background-color: #ff2f2f;
+  background-color: #FAD961;
+  background-image: linear-gradient(90deg, #f87132 0%, #f71c1c 100%);  
   margin: auto;
   width: 98%;
   text-align: center;
@@ -77,19 +80,19 @@ body {
   cursor: pointer;
 }
 .footer button.start {
-  background-color: #ff99cc;
+  background-image: linear-gradient(to right, #DA22FF 0%, #9733EE 51%, #DA22FF 100%); 
 }
 .footer button.restart {
-  background-color: #ff6666;
+  background-image: linear-gradient(to right, #e52d27 0%, #b31217 51%, #e52d27 100%);
 }
 .footer button.spell-check {
-  background-color: #66b3ff;
+  background-image: linear-gradient(to right, #314755 0%, #314755 100%);
 }
 .footer button.create-pdf {
-  background-color: #66ff66;
+  background-image: linear-gradient(to right, #1CD8D2 0%, #1CD8D2 100%);
 }
 .footer button.find-missing-words-color {
-  background-color: #b3ffb3;
+  background-image: linear-gradient(to right, #348F50 0%,#348F50 100%);
 }
 /* myapp/static/myapp/styles.css */
 /* player */
