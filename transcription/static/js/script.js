@@ -170,6 +170,9 @@ document.addEventListener("DOMContentLoaded", () => {
       resetStopwatch();
       stopStopwatch();
       textArea.value = "";
+      slashCounter.innerHTML = "0";
+      wordCounter.innerHTML = "0";
+      avarageCounter.innerHTML = "0";
       startStopButton.textContent = "Start";
       // startAudio();
     } else {
