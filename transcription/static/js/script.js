@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pauseButton = document.getElementById("pause-button");
   const progressBar = document.getElementById("progress-bar");
   const durationCheckbox = document.getElementById("duration-checkbox");
+  const audioUpload = document.getElementById("audio-upload");
   let selectedAudioSrc = "";
   let stopwatchInterval;
   let elapsedTime = 0;
@@ -89,11 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
       let numOfSlashes = text.split("/").length - 1;
       slashCounter.innerHTML = numOfSlashes;
 
-      let textWithoutPunctuation = textArea.value.replace(/[^\w\s]/gi, '');
-      let numberOfWords = textWithoutPunctuation.split(" ").filter((word) => word !== "").length;
+      let textWithoutPunctuation = textArea.value.replace(/[^\w\s]/gi, "");
+      let numberOfWords = textWithoutPunctuation
+        .split(" ")
+        .filter((word) => word !== "").length;
       wordCounter.innerHTML = numberOfWords;
 
-      let avg = (numberOfWords / numOfSlashes);
+      let avg = numberOfWords / numOfSlashes;
 
       if (isNaN(avg) || !isFinite(avg)) {
         avg = 0;
@@ -116,6 +119,15 @@ document.addEventListener("DOMContentLoaded", () => {
       // Set the selected audio source
       selectedAudioSrc = item.getAttribute("data-src");
     });
+  });
+
+  audioUpload.addEventListener("change", () => {
+    const file = audioUpload.files[0];
+    if (file) {
+      selectedAudioSrc = URL.createObjectURL(file);
+      startStopButton.disabled = false;
+      pauseButton.disabled = false;
+    }
   });
 
   function startAudio() {
