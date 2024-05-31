@@ -59,6 +59,9 @@
         <div class="highlighting-tools">Highlighting tools</div>
         <div class="playlist-container">
           <div class="tracks">Tracks</div>
+          <div class="upload-container">
+            <input type="file" id="audio-upload" accept="audio/*">
+          </div>
           <ul class="playlist">
             {% for audio in audio_files %}
             <li data-src="{{ audio.audio.url }}">{{ audio.title }}</li>
