@@ -20,27 +20,13 @@
           <source id="audio-source" src="" type="audio/mp3" />
           Your browser does not support the audio element.
         </audio>
-        <div class="counter">
-          <div id="layout-button" class="center2">
-            <p>Words:</p>
-            <p id="word-counter">0</p>
-            <p>Slashes:</p>
-            <p id="slash-counter">0</p>
-            <p>Avarage:</p>
-            <p id="avarage-counter">0</p>
-          </div>
-          <input
-            type="text"
-            placeholder="Enter the coursebook's name, part and page"
-            id="name-text-area"
-            spellcheck="true"
-          />
-        </div>
         <div class="controls-place">
           <div class="custom-controls">
             <div class="inline-controls">
               <button id="pause-button"><i class="fas fa-pause"></i></button>
-              <button id="volume-button"><i class="fas fa-volume-up"></i></button>
+              <button id="volume-button">
+                <i class="fas fa-volume-up"></i>
+              </button>
               <input
                 type="range"
                 id="volume-slider"
@@ -58,7 +44,25 @@
             <div id="stopwatch">00:00:00</div>
           </div>
         </div>
-
+        <div class="logo-container">
+          <img src="{% static "img/logo.jpg" %}" alt="Logo" class="circle-logo" />
+        </div>
+        <div class="counter">
+          <div id="layout-button" class="center2">
+            <p>Words:</p>
+            <p id="word-counter">0</p>
+            <p>Slashes:</p>
+            <p id="slash-counter">0</p>
+            <p>Avarage:</p>
+            <p id="avarage-counter">0</p>
+          </div>
+          <input
+            type="text"
+            placeholder="Enter the coursebook's name, part and page"
+            id="name-text-area"
+            spellcheck="true"
+          />
+        </div>
       </div>
       <!-- <div id="stopwatch">00:00:00</div> -->
       <div class="main">

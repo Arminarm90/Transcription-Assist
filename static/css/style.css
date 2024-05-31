@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #e6f2ff;
-  display: flex;
+  background: linear-gradient(45deg, pink, teal);
+  background-repeat: no-repeat;  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -11,17 +11,18 @@ body {
   border: 2px solid #ff0000;
   border-radius: 10px;
   background-color: rgb(62, 143, 201);
-  width: 80%;
-  height: 80%;
+  width: 90%;
+  height: 90%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .header {
   background-color: #ff2f2f;
-  width: 100%;
+  margin: auto;
+  width: 98%;
   text-align: center;
   font-size: 24px;
   font-weight: bold;
@@ -32,10 +33,9 @@ body {
   display: flex;
   width: 100%;
   flex-grow: 1;
-  margin-top: 20px;
+  margin-top: 10px;
 }
-.text-area,
-.pdf-reader {
+.text-area {
   flex: 1;
   border: 2px solid #ff0000;
   border-radius: 10px;
@@ -55,14 +55,12 @@ body {
 }
 .highlighting-tools {
   background-color: #ffff4d;
+  height: 100%;
+  margin: 0 10px;
   border-radius: 10px;
   padding: 10px;
   text-align: center;
   font-weight: bold;
-}
-.pdf-reader {
-  width: 100%;
-  height: 100%;
 }
 .footer {
   margin-top: 20px;
@@ -90,22 +88,17 @@ body {
 .footer button.create-pdf {
   background-color: #66ff66;
 }
-.footer button.find-missing-words {
+.footer button.find-missing-words-color {
   background-color: #b3ffb3;
 }
 /* myapp/static/myapp/styles.css */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
 /* player */
 .audio-player {
-  text-align: center;
+  display: flex;
+  float: left;
+  margin: 0 10px;
+  width: 95%;
+  height: 20%;
   background: #0dd7bc;
   padding: 20px;
   border-radius: 10px;
@@ -116,11 +109,86 @@ audio {
   display: none; /* Hide the default audio player */
 }
 
+.controls-place{
+  width: 40%;
+  float: left;
+}
+
 .custom-controls {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;  /* Adjust the width as needed */
+  height: 30%; /* Adjust the height as needed */
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.circle-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.counter {
+  float: right;
+  display: flex;
+  width: 30%;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.center2 {
+  flex: 1; /* Takes up remaining space */
+}
+
+#name-text-area {
+  width: 100%;
+  font-size: 1.0em;
+  padding: 10px;
+  margin-top: 10px; /* Pushes element to the bottom */
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.center2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  font-weight: bold;
+  width: 100%;
+  height: 20%;
+  background: #b24cf2;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.center2 p {
+  margin: 8px; /* Remove default margin */
+  color: white;
+}
+.center1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  width: 20%;
+  height: 70%;
+  background: #ffff00;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 
 button {
   padding: 10px;
@@ -147,20 +215,34 @@ button:hover {
 }
 #volume-slider {
   margin-left: 10px;
-  width: 150px;
+  width: 100px;
+}
+
+#progress-bar {
+  appearance: none;
+  width: 70%;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
 }
 
 #stopwatch {
-  margin-top: 20px;
+  margin-top: 10px;
   font-size: 1.5em;
   font-weight: bold;
 }
 
+#duration-checkbox {
+  margin-top: 10px;
+}
+
 /* Hide the seek bar and time displays */
-audio::-webkit-media-controls-seek-bar,
+/* audio::-webkit-media-controls-seek-bar,
 audio::-webkit-media-controls-timeline {
   display: none;
-}
+} */
 
 .tracks {
   background-color: #ff8000;
@@ -210,3 +292,15 @@ audio::-webkit-media-controls-timeline {
   background: #ccc;
   font-weight: bold;
 }
+
+.upload-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#audio-upload {
+  margin-bottom: 5px;
+}
+
