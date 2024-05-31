@@ -21,10 +21,10 @@
           Your browser does not support the audio element.
         </audio>
         <div id= "layout-button" class="center2">
-          <p>Slashs:</p>
-          <p id="slash-counter">0</p>
           <p>Words:</p>
           <p id="word-counter">0</p>
+          <p>Slashes:</p>
+          <p id="slash-counter">0</p>
           <p>Avarage:</p>
           <p id="avarage-counter">0</p>
         </div>
@@ -71,9 +71,7 @@
         <button class="restart" id="restart-button">Restart</button>
         <button id="toggleButton" onclick="toggleSpellCheck()">Spell Check: On</button>
         {% comment %} <p id="status">Spell Check: off</p> {% endcomment %}
-        <button class="find-missing-words" onclick="findMissingWords()">
-          Find missing words
-        </button>
+        <button id="find-missing-words" class="find-missing-words-color">Find missing words</button>
         <button class="create-pdf" onclick="createPdf()">Create Pdf</button>
       </div>
     </div>

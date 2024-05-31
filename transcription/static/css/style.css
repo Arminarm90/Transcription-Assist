@@ -87,7 +87,7 @@ body {
 .footer button.create-pdf {
   background-color: #66ff66;
 }
-.footer button.find-missing-words {
+.footer button.find-missing-words-color {
   background-color: #b3ffb3;
 }
 /* myapp/static/myapp/styles.css */
@@ -118,7 +118,7 @@ audio {
   align-items: center;
   float: right;
   font-weight: bold;
-  width: 33%;
+  width: 40%;
   height: 20%;
   background: #b24cf2;
   padding: 20px;

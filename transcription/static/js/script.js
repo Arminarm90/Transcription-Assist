@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let wordCounter = document.getElementById("word-counter");
   let textArea = document.getElementById("text-area");
   let missingWordsButton = document.getElementById("find-missing-words");
+  let avarageCounter = document.getElementById("avarage-counter");
   const audio = document.getElementById("audio");
   const audioSource = document.getElementById("audio-source");
   const playlistItems = document.querySelectorAll(".playlist li");
@@ -88,21 +89,19 @@ document.addEventListener("DOMContentLoaded", () => {
       let numOfSlashes = text.split("/").length - 1;
       slashCounter.innerHTML = numOfSlashes;
 
-      let textWithoutPunctuation = textArea.value.replace(/[^\w\s]/gi, "");
-      let numberOfWords = textWithoutPunctuation
-        .split(" ")
-        .filter((word) => word !== "").length;
+      let textWithoutPunctuation = textArea.value.replace(/[^\w\s]/gi, '');
+      let numberOfWords = textWithoutPunctuation.split(" ").filter((word) => word !== "").length;
       wordCounter.innerHTML = numberOfWords;
 
-      // let avg = numberOfWords / numOfSlashes;
+      let avg = (numberOfWords / numOfSlashes);
 
-      // if (isNaN(avg) || !isFinite(avg)) {
-      //   avg = 0;
-      // } else {
-      //   avg = avg.toFixed(2);
-      // }
+      if (isNaN(avg) || !isFinite(avg)) {
+        avg = 0;
+      } else {
+        avg = avg.toFixed(2);
+      }
 
-      // avarageCounter.innerHTML = avg;
+      avarageCounter.innerHTML = avg;
     }
   });
 
