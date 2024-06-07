@@ -36,31 +36,6 @@ async function createPdf() {
   }
 }
 
-// async function findMissingWords() {
-//   const textArea = document.getElementById("text-area");
-//   const text = textArea.value;
-
-//   try {
-//     const response = await fetch("/api/find-missing-words", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ text }),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error("Find missing words failed");
-//     }
-
-//     const result = await response.json();
-//     alert("Missing words: " + JSON.stringify(result));
-//   } catch (error) {
-//     alert("Error: " + error.message);
-//   }
-// }
-
-// player
 document.addEventListener("DOMContentLoaded", () => {
   let slashCounter = document.getElementById("slash-counter");
   let wordCounter = document.getElementById("word-counter");
@@ -90,10 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
       let numOfSlashes = text.split("/").length - 1;
       slashCounter.innerHTML = numOfSlashes;
 
-      let textWithoutPunctuation = textArea.value.replace(/[^\w\s]/gi, "");
-      let numberOfWords = textWithoutPunctuation
-        .split(" ")
-        .filter((word) => word !== "").length;
+      let textWithoutPunctuation = textArea.value.replace(/[^\w\s]/gi, '');
+      let numberOfWords = textWithoutPunctuation.split(" ").filter((word) => word !== "").length;
       wordCounter.innerHTML = numberOfWords;
 
       let avg = numberOfWords / numOfSlashes;

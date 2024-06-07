@@ -172,7 +172,7 @@ audio {
   float: right;
   font-weight: bold;
   width: 100%;
-  height: 20%;
+  height: 90%;
   background: #b24cf2;
   padding: 20px;
   border-radius: 10px;
@@ -181,19 +181,10 @@ audio {
 .center2 p {
   margin: 8px; /* Remove default margin */
   color: white;
+  font-size: 12px
 }
-.center1{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  float: left;
-  width: 20%;
-  height: 70%;
-  background: #ffff00;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+
+
 
 
 button {
