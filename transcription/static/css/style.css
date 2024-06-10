@@ -66,7 +66,7 @@ body {
   font-weight: bold;
 }
 .footer {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -243,7 +243,7 @@ audio::-webkit-media-controls-timeline {
 
 .tracks {
   background-color: #ff8000;
-  width: 285px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -253,13 +253,13 @@ audio::-webkit-media-controls-timeline {
 }
 
 .playlist-container {
-  max-height: 300px; /* Set the height of the playlist container */
+  max-height: 320px; /* Set the height of the playlist container */
   overflow-y: auto; /* Enable vertical scrolling */
-  margin-top: 20px;
+  margin-top: 0;
   border: 1px solid #0dd7bc; /* Optional: add a border around the playlist */
   border-radius: 5px;
   background: #f9f9f9;
-  width: 300px; /* Set a fixed width for the playlist container */
+  width: 400px; /* Set a fixed width for the playlist container */
 }
 
 .playlist {
@@ -301,3 +301,114 @@ audio::-webkit-media-controls-timeline {
   margin-bottom: 5px;
 }
 
+/* editor */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+
+li {
+	margin-left: 16px;
+}
+
+a {
+	cursor: pointer;
+}
+
+
+.editor-container {
+  margin-right: 20px;
+  margin-top: 0;
+	width: 100%;
+  height: 350px;
+	background: #fff;
+	border-radius: 8px;
+	overflow: hidden;
+}
+.toolbar {
+  max-height: 100%;
+	padding: 5px;
+	background: #eee;
+}
+.toolbar .head {
+	display: flex;
+	grid-gap: 10px;
+	margin-bottom: 2px;
+	flex-wrap: wrap;
+}
+.toolbar .head > input {
+	max-width: 100px;
+	padding: 6px 10px;
+	border-radius: 6px;
+	border: 2px solid #ddd;
+	outline: none;
+}
+.toolbar .head select {
+	background: #fff;
+	border: 2px solid #ddd;
+	border-radius: 6px;
+	outline: none;
+	cursor: pointer;
+}
+.toolbar .head .color {
+	background: #fff;
+	border: 2px solid #ddd;
+	border-radius: 6px;
+	outline: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	grid-gap: 6px;
+	padding: 0 10px;
+}
+.toolbar .head .color span {
+	font-size: 14px;
+}
+.toolbar .head .color input {
+	border: none;
+	padding: 0;
+	width: 26px;
+	height: 26px;
+	background: #fff;
+	cursor: pointer;
+}
+.toolbar .head .color input::-moz-color-swatch {
+	width: 20px;
+	height: 20px;
+	border: none;
+	border-radius: 50%;
+}
+.toolbar .btn-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	grid-gap: 5px;
+}
+.toolbar .btn-toolbar button {
+  margin-top: 0;
+	background: #fff;
+	border: 2px solid #ddd;
+	border-radius: 6px;
+	cursor: pointer;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+  
+}
+.toolbar .btn-toolbar i {
+	color: black;
+}
+.toolbar .btn-toolbar button:hover {
+	background: #f3f3f3;
+}
+#content {
+	padding: 16px;
+	outline: none;
+	max-height: 200px;
+	overflow: auto;
+}
+#show-code[data-active="true"] {
+	background: #eee;
+}

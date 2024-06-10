@@ -10,36 +10,36 @@ function toggleSpellCheck() {
   }
 }
 
-async function createPdf() {
-  const textArea = document.getElementById("text-area");
-  const text = textArea.value;
+// async function createPdf() {
+//   const textArea = document.getElementById("text-area");
+//   const text = textArea.value;
 
-  try {
-    const response = await fetch("/api/create-pdf", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    });
+//   try {
+//     const response = await fetch("/api/create-pdf", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ text }),
+//     });
 
-    if (!response.ok) {
-      throw new Error("Create PDF failed");
-    }
+//     if (!response.ok) {
+//       throw new Error("Create PDF failed");
+//     }
 
-    const result = await response.json();
-    alert("PDF created: " + result.pdfUrl);
-    const pdfReader = document.getElementById("pdf-reader");
-    pdfReader.src = result.pdfUrl;
-  } catch (error) {
-    alert("Error: " + error.message);
-  }
-}
+//     const result = await response.json();
+//     alert("PDF created: " + result.pdfUrl);
+//     const pdfReader = document.getElementById("pdf-reader");
+//     pdfReader.src = result.pdfUrl;
+//   } catch (error) {
+//     alert("Error: " + error.message);
+//   }
+// }
 
 document.addEventListener("DOMContentLoaded", () => {
   let slashCounter = document.getElementById("slash-counter");
   let wordCounter = document.getElementById("word-counter");
-  let textArea = document.getElementById("text-area");
+  // let textArea = document.getElementById("text-area");
   let missingWordsButton = document.getElementById("find-missing-words");
   let avarageCounter = document.getElementById("avarage-counter");
   const audio = document.getElementById("audio");
@@ -57,29 +57,29 @@ document.addEventListener("DOMContentLoaded", () => {
   let selectedAudioSrc = "";
   let stopwatchInterval;
   let elapsedTime = 0;
-  textArea.disabled = true;
+  // textArea.disabled = true;
 
-  textArea.addEventListener("input", function () {
-    if (missingWordsButton.innerHTML === "Find missing words") {
-      let text = textArea.value.trim();
-      let numOfSlashes = text.split("/").length - 1;
-      slashCounter.innerHTML = numOfSlashes;
+  // textArea.addEventListener("input", function () {
+  //   if (missingWordsButton.innerHTML === "Find missing words") {
+  //     let text = textArea.value.trim();
+  //     let numOfSlashes = text.split("/").length - 1;
+  //     slashCounter.innerHTML = numOfSlashes;
 
-      let textWithoutPunctuation = textArea.value.replace(/[^\w\s]/gi, '');
-      let numberOfWords = textWithoutPunctuation.split(" ").filter((word) => word !== "").length;
-      wordCounter.innerHTML = numberOfWords;
+  //     let textWithoutPunctuation = textArea.value.replace(/[^\w\s]/gi, '');
+  //     let numberOfWords = textWithoutPunctuation.split(" ").filter((word) => word !== "").length;
+  //     wordCounter.innerHTML = numberOfWords;
 
-      let avg = numberOfWords / numOfSlashes;
+  //     let avg = numberOfWords / numOfSlashes;
 
-      if (isNaN(avg) || !isFinite(avg)) {
-        avg = 0;
-      } else {
-        avg = avg.toFixed(2);
-      }
+  //     if (isNaN(avg) || !isFinite(avg)) {
+  //       avg = 0;
+  //     } else {
+  //       avg = avg.toFixed(2);
+  //     }
 
-      avarageCounter.innerHTML = avg;
-    }
-  });
+  //     avarageCounter.innerHTML = avg;
+  //   }
+  // });
 
   playlistItems.forEach((item) => {
     item.addEventListener("click", () => {
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (startStopButton.textContent === "Start") {
       if (selectedAudioSrc) {
         startAudio();
-        textArea.disabled = false;
+        // textArea.disabled = false;
         startStopButton.textContent = "Stop";
 
         // Start the stopwatch
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Stop the audio and stopwatch
       audio.pause();
       stopStopwatch();
-      textArea.disabled = true;
+      // textArea.disabled = true;
       startStopButton.textContent = "Start";
     }
   });
@@ -151,10 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
       audio.currentTime = 0;
       audio.pause();
       // startAudio();
-      textArea.disabled = true;
+      // textArea.disabled = true;
       resetStopwatch();
       stopStopwatch();
-      textArea.value = "";
+      // textArea.value = "";
       slashCounter.innerHTML = "0";
       wordCounter.innerHTML = "0";
       avarageCounter.innerHTML = "0";
@@ -240,3 +240,37 @@ document.addEventListener("DOMContentLoaded", () => {
     )}:${String(seconds).padStart(2, "0")}`;
   }
 });
+
+
+// text editor
+function formatDoc(cmd, value=null) {
+	if(value) {
+		document.execCommand(cmd, false, value);
+	} else {
+		document.execCommand(cmd);
+	}
+}
+
+function addLink() {
+	const url = prompt('Insert url');
+	formatDoc('createLink', url);
+}
+
+
+
+
+const content = document.getElementById('content');
+
+content.addEventListener('mouseenter', function () {
+	const a = content.querySelectorAll('a');
+	a.forEach(item=> {
+		item.addEventListener('mouseenter', function () {
+			content.setAttribute('contenteditable', false);
+			item.target = '_blank';
+		})
+		item.addEventListener('mouseleave', function () {
+			content.setAttribute('contenteditable', true);
+		})
+	})
+})
+
