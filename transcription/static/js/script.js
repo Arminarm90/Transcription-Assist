@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (startStopButton.textContent === "Start") {
       if (selectedAudioSrc) {
         startAudio();
-        // textArea.disabled = false;
+        textArea.contentEditable =  true;
         startStopButton.textContent = "Stop";
 
         // Start the stopwatch
@@ -184,16 +184,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (audioSource.src) {
       audio.currentTime = 0;
       audio.pause();
-      // startAudio();
-      // textArea.disabled = true;
+      textArea.contentEditable =  false;
       resetStopwatch();
       stopStopwatch();
-      // textArea.value = "";
+      textArea.textContent = ""
       slashCounter.innerHTML = "0";
       wordCounter.innerHTML = "0";
       avarageCounter.innerHTML = "0";
       startStopButton.textContent = "Start";
-      // startAudio();
     } else {
       alert("Please select and start a track first.");
     }
