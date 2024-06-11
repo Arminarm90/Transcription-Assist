@@ -1,5 +1,5 @@
 function toggleSpellCheck() {
-  const textBox = document.getElementById("text-area");
+  const textBox = document.getElementById("content");
   const button = document.getElementById("toggleButton");
   if (textBox.spellcheck) {
     textBox.spellcheck = false;
@@ -9,32 +9,6 @@ function toggleSpellCheck() {
     button.textContent = "Spell Check: On";
   }
 }
-
-// async function createPdf() {
-//   const textArea = document.getElementById("text-area");
-//   const text = textArea.value;
-
-//   try {
-//     const response = await fetch("/api/create-pdf", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ text }),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error("Create PDF failed");
-//     }
-
-//     const result = await response.json();
-//     alert("PDF created: " + result.pdfUrl);
-//     const pdfReader = document.getElementById("pdf-reader");
-//     pdfReader.src = result.pdfUrl;
-//   } catch (error) {
-//     alert("Error: " + error.message);
-//   }
-// }
 
 document.addEventListener("DOMContentLoaded", () => {
   let slashCounter = document.getElementById("slash-counter");
@@ -59,28 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let selectedAudioSrc = "";
   let stopwatchInterval;
   let elapsedTime = 0;
-  // editor.disabled = true;
-
-  // textArea.addEventListener("input", function () {
-  //   if (missingWordsButton.innerHTML === "Find missing words") {
-  //     let textcontent = text.trim();
-  //     let numOfSlashes = textcontent.split("/").length - 1;
-  //     slashCounter.innerHTML = numOfSlashes;
-  //     let textWithoutPunctuation = text.replace(/[^\w\s]/gi, '');
-  //     let numberOfWords = textWithoutPunctuation.split(" ").filter((word) => word !== "").length;
-  //     wordCounter.innerHTML = numberOfWords;
-      
-  //     let avg = numberOfWords / numOfSlashes;
-
-  //     if (isNaN(avg) || !isFinite(avg)) {
-  //       avg = 0;
-  //     } else {
-  //       avg = avg.toFixed(2);
-  //     }
-
-  //     avarageCounter.innerHTML = avg;
-  //   }
-  // });
   
   (function() {
     // Function to update word count, slash count, and average words between slashes
