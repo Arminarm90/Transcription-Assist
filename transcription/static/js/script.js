@@ -39,7 +39,9 @@ function toggleSpellCheck() {
 document.addEventListener("DOMContentLoaded", () => {
   let slashCounter = document.getElementById("slash-counter");
   let wordCounter = document.getElementById("word-counter");
-  // let textArea = document.getElementById("text-area");
+  let editor = document.getElementById("editor-container")
+  let textArea = document.getElementById("content");
+  let text = document.getElementById("content").textContent;
   let missingWordsButton = document.getElementById("find-missing-words");
   let avarageCounter = document.getElementById("avarage-counter");
   const audio = document.getElementById("audio");
@@ -57,18 +59,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let selectedAudioSrc = "";
   let stopwatchInterval;
   let elapsedTime = 0;
-  // textArea.disabled = true;
+  // editor.disabled = true;
 
   // textArea.addEventListener("input", function () {
   //   if (missingWordsButton.innerHTML === "Find missing words") {
-  //     let text = textArea.value.trim();
-  //     let numOfSlashes = text.split("/").length - 1;
+  //     let textcontent = text.trim();
+  //     let numOfSlashes = textcontent.split("/").length - 1;
   //     slashCounter.innerHTML = numOfSlashes;
-
-  //     let textWithoutPunctuation = textArea.value.replace(/[^\w\s]/gi, '');
+  //     let textWithoutPunctuation = text.replace(/[^\w\s]/gi, '');
   //     let numberOfWords = textWithoutPunctuation.split(" ").filter((word) => word !== "").length;
   //     wordCounter.innerHTML = numberOfWords;
-
+      
   //     let avg = numberOfWords / numOfSlashes;
 
   //     if (isNaN(avg) || !isFinite(avg)) {
@@ -80,6 +81,39 @@ document.addEventListener("DOMContentLoaded", () => {
   //     avarageCounter.innerHTML = avg;
   //   }
   // });
+  
+  (function() {
+    // Function to update word count, slash count, and average words between slashes
+    function updateCounts() {
+        var text = document.getElementById("content").textContent;
+        
+        // Count words
+        var words = text.trim().split(/\s+/);
+        var wordCount = words.filter(word => word.length > 0).length;
+
+        // Count slashes
+        var slashes = text.split('/').length - 1;
+        var slashCount = slashes;
+
+        // Calculate average words between slashes
+        var average = 0;
+        if (slashCount > 0) {
+            var segments = text.split('/');
+            var totalWordsInSegments = segments.reduce((total, segment) => {
+                return total + segment.trim().split(/\s+/).filter(word => word.length > 0).length;
+            }, 0);
+            average = totalWordsInSegments / slashCount;
+        }
+
+        // Update the display
+        document.getElementById("word-counter").textContent = wordCount;
+        document.getElementById("slash-counter").textContent = slashCount;
+        document.getElementById("avarage-counter").textContent = average.toFixed(2);
+    }
+
+    // Add event listener to the div to update counts on input
+    document.getElementById("content").addEventListener('input', updateCounts);
+})();
 
   playlistItems.forEach((item) => {
     item.addEventListener("click", () => {
@@ -273,4 +307,3 @@ content.addEventListener('mouseenter', function () {
 		})
 	})
 })
-

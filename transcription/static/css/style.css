@@ -253,7 +253,7 @@ audio::-webkit-media-controls-timeline {
 }
 
 .playlist-container {
-  max-height: 320px; /* Set the height of the playlist container */
+  max-height: 350px; /* Set the height of the playlist container */
   overflow-y: auto; /* Enable vertical scrolling */
   margin-top: 0;
   border: 1px solid #0dd7bc; /* Optional: add a border around the playlist */
