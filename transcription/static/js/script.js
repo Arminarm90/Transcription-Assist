@@ -86,6 +86,8 @@ function createPDF(finalVersion) {
   const day = date.getDate().toString().padStart(2, '0');
   const fileName = `transcribe-${year}-${month}-${day}${finalVersion}.pdf`;
 
+  window.jsPDF = window.jspdf.jsPDF
+  
   const doc = new jsPDF();
 
   const name = doc.splitTextToSize(`Lesson name: ${nameTextArea.value}`, 180);
