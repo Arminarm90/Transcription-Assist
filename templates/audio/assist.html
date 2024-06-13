@@ -184,7 +184,7 @@
           Spell Check: On
         </button>
         <button id="find-missing-words" class="find-missing-words-color">Find missing words</button>
-        <button class="create-pdf" onclick="createPdf()">Create Pdf</button>
+        <button class="create-pdf" id="create-pdf-button">Create Pdf</button>
       </div>
     </div>
     <script src="{% static 'js/script.js' %}"></script>
@@ -194,5 +194,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> 
   </body>
 </html>

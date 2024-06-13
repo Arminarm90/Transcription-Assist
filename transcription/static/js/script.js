@@ -18,11 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let text = document.getElementById("content").textContent;
   let missingWordsButton = document.getElementById("find-missing-words");
   let avarageCounter = document.getElementById("avarage-counter");
+  let nameTextArea = document.getElementById("name-text-area");
   const audio = document.getElementById("audio");
   const audioSource = document.getElementById("audio-source");
   const playlistItems = document.querySelectorAll(".playlist li");
   const startStopButton = document.getElementById("start-stop-button");
   const restartButton = document.getElementById("restart-button");
+  let createPDFButton = document.getElementById("create-pdf-button");
   const stopwatchDisplay = document.getElementById("stopwatch");
   const volumeButton = document.getElementById("volume-button");
   const volumeSlider = document.getElementById("volume-slider");
@@ -66,6 +68,41 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add event listener to the div to update counts on input
     document.getElementById("content").addEventListener('input', updateCounts);
 })();
+
+createPDFButton.addEventListener("click", function() {
+  createPDF('');
+});
+
+function createPDF(finalVersion) {
+                
+  if(nameTextArea.value === ""){
+      alert("Plase enter the coursebook's name, part and page!");
+      return;
+  }
+  
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const fileName = `transcribe-${year}-${month}-${day}${finalVersion}.pdf`;
+
+  window.jsPDF = window.jspdf.jsPDF
+  
+  const doc = new jsPDF();
+
+  const name = doc.splitTextToSize(`Lesson name: ${nameTextArea.value}`, 180);
+  doc.text(15, 15, name);
+
+  const detail = `Word count: ${wordCounter.innerHTML}   Slash count: ${ slashCounter.innerHTML}   Avarage: ${avarageCounter.innerHTML}`;
+  const details = doc.splitTextToSize(detail, 180);
+  doc.setFontSize(14).setFont(undefined, 'bold').text(15, 30, details);
+  
+
+  const lines = doc.splitTextToSize(textArea.textContent, 180);
+  doc.setFontSize(14).setFont(undefined, 'normal').text(15, 45, lines);
+  
+  doc.save(fileName);
+}
 
   playlistItems.forEach((item) => {
     item.addEventListener("click", () => {
