@@ -132,7 +132,7 @@ audio {
   height: 100%; /* Adjust the height as needed */
   overflow: hidden;
   border-radius: 50%;
-  margin: auto;
+  margin-left: 90px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
 }
 
@@ -148,8 +148,8 @@ audio {
   width: 30%;
   align-items: center;
   flex-direction: column;
-  margin: auto;
-}
+  margin-left: 130px
+;}
 
 .center2 {
   flex: 1; /* Takes up remaining space */
@@ -216,12 +216,13 @@ button:hover {
 
 #progress-bar {
   appearance: none;
-  width: 100%;
+  width: 550px;
   height: 8px;
   margin-top: 5px;
   border-radius: 5px;
   background: #ddd;
   outline: none;
+  margin-left: 70px;
 }
 
 #stopwatch {
