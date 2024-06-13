@@ -93,7 +93,7 @@ function createPDF(finalVersion) {
   const name = doc.splitTextToSize(`Lesson name: ${nameTextArea.value}`, 180);
   doc.text(15, 15, name);
 
-  const detail = `Slash count: ${slashCounter.innerHTML}   Word count: ${wordCounter.innerHTML}   Avarage: ${avarageCounter.innerHTML}`;
+  const detail = `Word count: ${wordCounter.innerHTML}   Slash count: ${ slashCounter.innerHTML}   Avarage: ${avarageCounter.innerHTML}`;
   const details = doc.splitTextToSize(detail, 180);
   doc.setFontSize(14).setFont(undefined, 'bold').text(15, 30, details);
   
