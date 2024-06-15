@@ -1,19 +1,73 @@
-function toggleSpellCheck() {
-  const textBox = document.getElementById("content");
-  const button = document.getElementById("toggleButton");
-  if (textBox.spellcheck) {
-    textBox.spellcheck = false;
-    button.textContent = "Spell Check: Off";
-  } else {
-    textBox.spellcheck = true;
-    button.textContent = "Spell Check: On";
+function loadLessons() {
+  var unitId = document.getElementById("unit-select").value;
+  fetch(`/get-lessons/?unit_id=${unitId}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      var lessonSelect = document.getElementById("lesson-select");
+      lessonSelect.innerHTML = "";
+      data.forEach(function (lesson) {
+        var option = document.createElement("option");
+        option.value = lesson.id;
+        option.text = lesson.title;
+        lessonSelect.add(option);
+      });
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
+    });
+}
+
+function correctText() {
+  var content = document.getElementById("content").innerText;
+  var lessonId = document.getElementById("lesson-select").value;
+
+  fetch("/correct-text-ajax/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "X-CSRFToken": getCookie("csrftoken"),
+    },
+    body: `lesson=${lessonId}&text=${encodeURIComponent(content)}`,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      document.getElementById("content").innerHTML = data.corrected_text;
+    })
+    .catch((error) => {
+      alert("Please select Unit and Track.");
+      console.error("There was a problem with the fetch operation:", error);
+    });
+}
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
   }
+  return cookieValue;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   let slashCounter = document.getElementById("slash-counter");
   let wordCounter = document.getElementById("word-counter");
-  let editor = document.getElementById("editor-container")
+  let editor = document.getElementById("editor-container");
   let textArea = document.getElementById("content");
   let text = document.getElementById("content").textContent;
   let missingWordsButton = document.getElementById("find-missing-words");
@@ -35,74 +89,79 @@ document.addEventListener("DOMContentLoaded", () => {
   let selectedAudioSrc = "";
   let stopwatchInterval;
   let elapsedTime = 0;
-  
-  (function() {
+
+  (function () {
     // Function to update word count, slash count, and average words between slashes
     function updateCounts() {
-        var text = document.getElementById("content").textContent;
-        
-        // Count words
-        var words = text.trim().split(/\s+/);
-        var wordCount = words.filter(word => word.length > 0).length;
+      var text = document.getElementById("content").textContent;
 
-        // Count slashes
-        var slashes = text.split('/').length - 1;
-        var slashCount = slashes;
+      // Count words
+      var words = text.trim().split(/\s+/);
+      var wordCount = words.filter((word) => word.length > 0).length;
 
-        // Calculate average words between slashes
-        var average = 0;
-        if (slashCount > 0) {
-            var segments = text.split('/');
-            var totalWordsInSegments = segments.reduce((total, segment) => {
-                return total + segment.trim().split(/\s+/).filter(word => word.length > 0).length;
-            }, 0);
-            average = totalWordsInSegments / slashCount;
-        }
+      // Count slashes
+      var slashes = text.split("/").length - 1;
+      var slashCount = slashes;
 
-        // Update the display
-        document.getElementById("word-counter").textContent = wordCount;
-        document.getElementById("slash-counter").textContent = slashCount;
-        document.getElementById("avarage-counter").textContent = average.toFixed(2);
+      // Calculate average words between slashes
+      var average = 0;
+      if (slashCount > 0) {
+        var segments = text.split("/");
+        var totalWordsInSegments = segments.reduce((total, segment) => {
+          return (
+            total +
+            segment
+              .trim()
+              .split(/\s+/)
+              .filter((word) => word.length > 0).length
+          );
+        }, 0);
+        average = totalWordsInSegments / slashCount;
+      }
+
+      // Update the display
+      document.getElementById("word-counter").textContent = wordCount;
+      document.getElementById("slash-counter").textContent = slashCount;
+      document.getElementById("avarage-counter").textContent =
+        average.toFixed(2);
     }
 
     // Add event listener to the div to update counts on input
-    document.getElementById("content").addEventListener('input', updateCounts);
-})();
+    document.getElementById("content").addEventListener("input", updateCounts);
+  })();
 
-createPDFButton.addEventListener("click", function() {
-  createPDF('');
-});
+  createPDFButton.addEventListener("click", function () {
+    createPDF("");
+  });
 
-function createPDF(finalVersion) {
-                
-  if(nameTextArea.value === ""){
+  function createPDF(finalVersion) {
+    if (nameTextArea.value === "") {
       alert("Plase enter the coursebook's name, part and page!");
       return;
+    }
+
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const fileName = `transcribe-${year}-${month}-${day}${finalVersion}.pdf`;
+
+    window.jsPDF = window.jspdf.jsPDF;
+
+    const doc = new jsPDF();
+
+    const name = doc.splitTextToSize(`Lesson name: ${nameTextArea.value}`, 180);
+    doc.text(15, 15, name);
+
+    const detail = `Word count: ${wordCounter.innerHTML}   Slash count: ${slashCounter.innerHTML}   Avarage: ${avarageCounter.innerHTML}`;
+    const details = doc.splitTextToSize(detail, 180);
+    doc.setFontSize(14).setFont(undefined, "bold").text(15, 30, details);
+
+    const lines = doc.splitTextToSize(textArea.textContent, 180);
+    doc.setFontSize(14).setFont(undefined, "normal").text(15, 45, lines);
+
+    doc.save(fileName);
   }
-  
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  const fileName = `transcribe-${year}-${month}-${day}${finalVersion}.pdf`;
-
-  window.jsPDF = window.jspdf.jsPDF
-  
-  const doc = new jsPDF();
-
-  const name = doc.splitTextToSize(`Lesson name: ${nameTextArea.value}`, 180);
-  doc.text(15, 15, name);
-
-  const detail = `Word count: ${wordCounter.innerHTML}   Slash count: ${ slashCounter.innerHTML}   Avarage: ${avarageCounter.innerHTML}`;
-  const details = doc.splitTextToSize(detail, 180);
-  doc.setFontSize(14).setFont(undefined, 'bold').text(15, 30, details);
-  
-
-  const lines = doc.splitTextToSize(textArea.textContent, 180);
-  doc.setFontSize(14).setFont(undefined, 'normal').text(15, 45, lines);
-  
-  doc.save(fileName);
-}
 
   playlistItems.forEach((item) => {
     item.addEventListener("click", () => {
@@ -143,7 +202,7 @@ function createPDF(finalVersion) {
     if (startStopButton.textContent === "Start") {
       if (selectedAudioSrc) {
         startAudio();
-        textArea.contentEditable =  true;
+        textArea.contentEditable = true;
         startStopButton.textContent = "Stop";
 
         // Start the stopwatch
@@ -173,10 +232,10 @@ function createPDF(finalVersion) {
     if (audioSource.src) {
       audio.currentTime = 0;
       audio.pause();
-      textArea.contentEditable =  false;
+      textArea.contentEditable = false;
       resetStopwatch();
       stopStopwatch();
-      textArea.textContent = ""
+      textArea.textContent = "";
       slashCounter.innerHTML = "0";
       wordCounter.innerHTML = "0";
       avarageCounter.innerHTML = "0";
@@ -262,35 +321,31 @@ function createPDF(finalVersion) {
   }
 });
 
-
 // text editor
-function formatDoc(cmd, value=null) {
-	if(value) {
-		document.execCommand(cmd, false, value);
-	} else {
-		document.execCommand(cmd);
-	}
+function formatDoc(cmd, value = null) {
+  if (value) {
+    document.execCommand(cmd, false, value);
+  } else {
+    document.execCommand(cmd);
+  }
 }
 
 function addLink() {
-	const url = prompt('Insert url');
-	formatDoc('createLink', url);
+  const url = prompt("Insert url");
+  formatDoc("createLink", url);
 }
 
+const content = document.getElementById("content");
 
-
-
-const content = document.getElementById('content');
-
-content.addEventListener('mouseenter', function () {
-	const a = content.querySelectorAll('a');
-	a.forEach(item=> {
-		item.addEventListener('mouseenter', function () {
-			content.setAttribute('contenteditable', false);
-			item.target = '_blank';
-		})
-		item.addEventListener('mouseleave', function () {
-			content.setAttribute('contenteditable', true);
-		})
-	})
-})
+content.addEventListener("mouseenter", function () {
+  const a = content.querySelectorAll("a");
+  a.forEach((item) => {
+    item.addEventListener("mouseenter", function () {
+      content.setAttribute("contenteditable", false);
+      item.target = "_blank";
+    });
+    item.addEventListener("mouseleave", function () {
+      content.setAttribute("contenteditable", true);
+    });
+  });
+});
