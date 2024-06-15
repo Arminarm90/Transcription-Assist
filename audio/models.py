@@ -12,7 +12,7 @@ class Lesson(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        return self.title
+        return f"{self.unit} : {self.title}"
 
 class AudioFile(models.Model):
     title = models.CharField(max_length=100)
