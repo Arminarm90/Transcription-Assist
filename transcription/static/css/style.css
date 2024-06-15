@@ -377,6 +377,15 @@ a {
 	border: none;
 	border-radius: 50%;
 }
+
+.label {
+  margin: auto;
+  font-size: 15px;
+}
+
+#unit-select {
+  width: 15%;
+}
 .toolbar .btn-toolbar {
 	display: flex;
 	flex-wrap: wrap;
