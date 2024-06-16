@@ -24,25 +24,39 @@ def correct_text(user_text, lesson_text):
     corrected_words = []
     lesson_index = 0
 
-    # Create a sequence matcher
-    sm = difflib.SequenceMatcher(None, user_words, lesson_words)
-    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+    matcher = difflib.SequenceMatcher(None, user_words, lesson_words)
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
         if tag == 'equal':
             corrected_words.extend(user_words[i1:i2])
-        elif tag == 'replace' or tag == 'delete':
-            for word in user_words[i1:i2]:
-                if word == '--':
-                    if j1 < len(lesson_words):
-                        corrected_words.append(f'<span style="color: red;">{lesson_words[j1]}</span>')
-                        j1 += 1
+            lesson_index = j2
+        elif tag == 'replace':
+            for i in range(i1, i2):
+                if user_words[i] == '--':
+                    if lesson_index < len(lesson_words):
+                        corrected_words.append(f'<span style="color: red;">{lesson_words[lesson_index]}</span>')
+                        lesson_index += 1
                     else:
                         corrected_words.append('<span style="color: red;">--</span>')
                 else:
-                    corrected_words.append(word)
+                    if lesson_index < len(lesson_words):
+                        corrected_words.append(f'<span style="color: blue;">{user_words[i]}</span>')
+                        lesson_index += 1
+                    else:
+                        corrected_words.append(f'<span style="color: blue;">{user_words[i]}</span>')
+        elif tag == 'delete':
+            for i in range(i1, i2):
+                if user_words[i] == '--':
+                    if lesson_index < len(lesson_words):
+                        corrected_words.append(f'<span style="color: red;">{lesson_words[lesson_index]}</span>')
+                        lesson_index += 1
+                    else:
+                        corrected_words.append('<span style="color: red;">--</span>')
+                else:
+                    corrected_words.append(f'<span style="color: blue;">{user_words[i]}</span>')
         elif tag == 'insert':
-            for word in lesson_words[j1:j2]:
-                corrected_words.append(f'<span style="color: red;">{word}</span>')
-    
+            for j in range(j1, j2):
+                corrected_words.append(f'<span style="color: green;">{lesson_words[j]}</span>')
+
     return ' '.join(corrected_words)
 
 
