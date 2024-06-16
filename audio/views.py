@@ -3,6 +3,7 @@ from .models import AudioFile, Unit, Lesson
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
+import difflib
 
 
 def audio_list(request):
@@ -16,23 +17,31 @@ def audio_list(request):
     return render(request, "audio/assist.html", context)
 
 
+
 def correct_text(user_text, lesson_text):
     user_words = user_text.split()
     lesson_words = lesson_text.split()
     corrected_words = []
     lesson_index = 0
-    
-    for word in user_words:
-        if word == '--':
-            while lesson_index < len(lesson_words) and lesson_words[lesson_index] in user_words:
-                lesson_index += 1
-            if lesson_index < len(lesson_words):
-                corrected_words.append(f'<span style="color: red;">{lesson_words[lesson_index]}</span>')
-                lesson_index += 1
-            else:
-                corrected_words.append('<span style="color: red;">--</span>')
-        else:
-            corrected_words.append(word)
+
+    # Create a sequence matcher
+    sm = difflib.SequenceMatcher(None, user_words, lesson_words)
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == 'equal':
+            corrected_words.extend(user_words[i1:i2])
+        elif tag == 'replace' or tag == 'delete':
+            for word in user_words[i1:i2]:
+                if word == '--':
+                    if j1 < len(lesson_words):
+                        corrected_words.append(f'<span style="color: red;">{lesson_words[j1]}</span>')
+                        j1 += 1
+                    else:
+                        corrected_words.append('<span style="color: red;">--</span>')
+                else:
+                    corrected_words.append(word)
+        elif tag == 'insert':
+            for word in lesson_words[j1:j2]:
+                corrected_words.append(f'<span style="color: red;">{word}</span>')
     
     return ' '.join(corrected_words)
 
