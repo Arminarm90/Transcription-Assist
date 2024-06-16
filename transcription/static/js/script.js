@@ -16,10 +16,19 @@ function loadLessons() {
         option.text = lesson.title;
         lessonSelect.add(option);
       });
+      updateUnitLessonName()
     })
     .catch((error) => {
       console.error("There was a problem with the fetch operation:", error);
     });
+}
+
+function updateUnitLessonName() {
+  var unitSelect = document.getElementById('unit-select');
+  var lessonSelect = document.getElementById('lesson-select');
+  var unitName = unitSelect.options[unitSelect.selectedIndex].text;
+  var lessonName = lessonSelect.options[lessonSelect.selectedIndex] ? lessonSelect.options[lessonSelect.selectedIndex].text : '';
+  document.getElementById('name-text-area').value = `${unitName} - ${lessonName}`;
 }
 
 function correctText() {
