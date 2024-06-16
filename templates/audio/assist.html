@@ -18,7 +18,9 @@
   </head>
   <body>
     <div class="container">
+      <!-- header -->
       <div class="header">Transcribe Assist</div>
+      <!-- audio player -->
       <div class="audio-player">
         <audio id="audio">
           <source id="audio-source" src="" type="audio/mp3" />
@@ -48,6 +50,7 @@
             <div id="stopwatch">00:00:00</div>
           </div>
         </div>
+        <!-- counters -->
         <div class="counter">
           <div id="layout-button" class="center2">
             <p>Word Count:</p>
@@ -64,13 +67,14 @@
             spellcheck="true"
           />
         </div>
+        <!-- logo -->
         <div class="logo-container">
           <img src="{% static "img/logo.jpg" %}" alt="Logo" class="circle-logo"
           />
         </div>
       </div>
-      <!-- <div id="stopwatch">00:00:00</div> -->
       <div class="main">
+        <!-- text box and editor -->
         <div class="editor-container" id="editor-container">
           <div class="toolbar">
             <div class="head">
@@ -174,8 +178,10 @@
               </button>
             </div>
           </div>
+          <!-- text box -->
           <div id="content" contenteditable="false" spellcheck="true"></div>
         </div>
+        <!-- playlist -->
         <div class="playlist-container">
           <div class="tracks">Tracks</div>
           <div class="upload-container">
@@ -188,6 +194,7 @@
           </ul>
         </div>
       </div>
+      <!-- footer -->
       <div class="footer">
         <button class="start" id="start-stop-button">Start</button>
         <button class="restart" id="restart-button">Restart</button>
@@ -198,7 +205,9 @@
         >
           Spell Check: On
         </button>
-        <button class="find-missing-words-color" onclick="correctText()">Find missing words</button>
+        <button class="find-missing-words-color" onclick="correctText()">
+          Find missing words
+        </button>
         <button class="create-pdf" id="create-pdf-button">Create Pdf</button>
       </div>
     </div>

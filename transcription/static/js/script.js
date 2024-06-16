@@ -1,3 +1,4 @@
+// select lesson
 function loadLessons() {
   var unitId = document.getElementById("unit-select").value;
   fetch(`/get-lessons/?unit_id=${unitId}`)
@@ -23,6 +24,7 @@ function loadLessons() {
     });
 }
 
+// updating book name input
 function updateUnitLessonName() {
   var unitSelect = document.getElementById('unit-select');
   var lessonSelect = document.getElementById('lesson-select');
@@ -30,6 +32,7 @@ function updateUnitLessonName() {
   document.getElementById('name-text-area').value = `${unitName}`;
 }
 
+// text corrector function
 function correctText() {
   var content = document.getElementById("content").innerText;
   var unitId = document.getElementById('unit-select').value;
@@ -106,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let stopwatchInterval;
   let elapsedTime = 0;
 
+  // counting 
   (function () {
     // Function to update word count, slash count, and average words between slashes
     function updateCounts() {
@@ -150,6 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     createPDF("");
   });
 
+  // create PDF
   function createPDF(finalVersion) {
     if (nameTextArea.value === "") {
       alert("Plase enter the coursebook's name, part and page!");
@@ -179,6 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.save(fileName);
   }
 
+  // playlist and buttons
   playlistItems.forEach((item) => {
     item.addEventListener("click", () => {
       // Remove active class from all items
@@ -300,6 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgressBar();
   });
 
+  // stopwatch
   function startStopwatch() {
     const startTime = Date.now() - elapsedTime;
     stopwatchInterval = setInterval(() => {
