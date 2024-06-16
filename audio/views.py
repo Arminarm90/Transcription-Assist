@@ -60,10 +60,13 @@ def correct_text(user_text, lesson_text):
                         f'<span style="color: blue;">{user_words[i]}</span>'
                     )
         elif tag == "insert":
-            for j in range(j1, j2):
-                corrected_words.append(
-                    f'<span style="color: green;">{lesson_words[j]}</span>'
-                )
+            continue
+        
+        #optional
+            # for j in range(j1, j2):
+            #     corrected_words.append(
+            #         f'<span style="color: green;">{lesson_words[j]}</span>'
+            #     )
 
     return " ".join(corrected_words)
 

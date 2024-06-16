@@ -27,13 +27,20 @@ function updateUnitLessonName() {
   var unitSelect = document.getElementById('unit-select');
   var lessonSelect = document.getElementById('lesson-select');
   var unitName = unitSelect.options[unitSelect.selectedIndex].text;
-  var lessonName = lessonSelect.options[lessonSelect.selectedIndex] ? lessonSelect.options[lessonSelect.selectedIndex].text : '';
-  document.getElementById('name-text-area').value = `${unitName} - ${lessonName}`;
+  document.getElementById('name-text-area').value = `${unitName}`;
 }
 
 function correctText() {
   var content = document.getElementById("content").innerText;
-  var lessonId = document.getElementById("lesson-select").value;
+  var unitId = document.getElementById('unit-select').value;
+  var lessonId = document.getElementById('lesson-select').value;
+
+  if (!unitId || !lessonId) {
+      // Only highlight the -- placeholders if no unit or lesson is selected
+      var highlightedContent = content.replace(/--/g, '<span style="color: red;">--</span>');
+      document.getElementById('content').innerHTML = highlightedContent;
+      return;
+  }
 
   fetch("/correct-text-ajax/", {
     method: "POST",
@@ -213,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startAudio();
         textArea.contentEditable = true;
         startStopButton.textContent = "Stop";
+        missingWordsButton.style.display = 'none';
 
         // Start the stopwatch
         startStopwatch();
@@ -225,6 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stopStopwatch();
       // textArea.disabled = true;
       startStopButton.textContent = "Start";
+      missingWordsButton.style.display = 'inline-block';
     }
   });
   pauseButton.addEventListener("click", () => {
