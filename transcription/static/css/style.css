@@ -380,12 +380,17 @@ a {
 
 .label {
   margin: auto;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 #unit-select {
-  width: 15%;
+  width: 12%;
 }
+
+#lesson-select{
+  width: 13%;
+}
+
 .toolbar .btn-toolbar {
 	display: flex;
 	flex-wrap: wrap;
