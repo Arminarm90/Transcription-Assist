@@ -377,6 +377,20 @@ a {
 	border: none;
 	border-radius: 50%;
 }
+
+.label {
+  margin: auto;
+  font-size: 13px;
+}
+
+#unit-select {
+  width: 12%;
+}
+
+#lesson-select{
+  width: 13%;
+}
+
 .toolbar .btn-toolbar {
 	display: flex;
 	flex-wrap: wrap;

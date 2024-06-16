@@ -11,8 +11,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
@@ -114,6 +116,20 @@
                   oninput="formatDoc('hiliteColor', this.value); this.value='#000000';"
                 />
               </div>
+              <label class="label" for="unit-select">Select Unit:</label>
+              <select id="unit-select" name="unit" onchange="loadLessons()">
+                <option value="">Select a unit</option>
+                {% for unit in units %}
+                <option value="{{ unit.id }}">{{ unit.name }}</option>
+                {% endfor %}
+              </select>
+              <br /><br />
+              <label class="label" for="lesson-select">Select Lesson:</label>
+              <select id="lesson-select" name="lesson">
+                <option value="">Select a lesson</option>
+                <!-- Options will be populated based on selected unit -->
+              </select>
+              <br /><br />
             </div>
             <div class="btn-toolbar">
               <button onclick="formatDoc('undo')">
@@ -158,8 +174,7 @@
               </button>
             </div>
           </div>
-          <div id="content" contenteditable="false" spellcheck="true">
-          </div>
+          <div id="content" contenteditable="false" spellcheck="true"></div>
         </div>
         <div class="playlist-container">
           <div class="tracks">Tracks</div>
@@ -183,7 +198,7 @@
         >
           Spell Check: On
         </button>
-        <button id="find-missing-words" class="find-missing-words-color">Find missing words</button>
+        <button class="find-missing-words-color" onclick="correctText()">Find missing words</button>
         <button class="create-pdf" id="create-pdf-button">Create Pdf</button>
       </div>
     </div>
@@ -194,6 +209,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   </body>
 </html>
